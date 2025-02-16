@@ -1,0 +1,197 @@
+# **Link In Bio API**
+
+## **📌 Project Overview**
+
+This is a **REST API** for managing "Link in Bio" functionality, built using **Golang** with **MongoDB** as the database. The system is designed to handle **high traffic loads** efficiently.
+
+---
+
+## **🚀 Features**
+
+✅ **Create, Update, Delete, and Retrieve Links**\
+✅ **Track Clicks and Store Visitor Data (IP, Timestamp, Link ID)**\
+✅ **MongoDB for Scalable Data Storage**\
+✅ **Dockerized for Easy Deployment**\
+✅ **Unit Testing for API Endpoints**
+
+---
+
+## **📂 Project Structure**
+
+```plaintext
+link-in-bio-api/
+├── Dockerfile                # Docker setup for containerization
+├── docker-compose.yml        # Defines multi-container setup
+├── go.mod                    # Go module dependencies
+├── go.sum                    # Go package checksums
+├── main.go                    # Application entry point
+├── api/
+│   └── v1/
+│       ├── handlers/
+│       │   └── link_handler.go  # API handlers
+│       ├── routes/
+│       │   └── link_routes.go   # API routes
+├── config/
+│   └── config.go                # Configuration management
+├── internal/
+│   ├── models/
+│   │   └── link.go               # Data models
+│   ├── repositories/
+│   │   ├── link_repository.go    # MongoDB repository
+│   │   └── mock_link_repository.go # Mock repository for testing
+│   ├── services/
+│   │   └── link_service.go       # Business logic
+│   │   └── link_service_test.go  # Unit tests
+├── pkg/
+│   └── middleware/
+│       └── logger.go             # Request logging middleware
+└── README.md                     # Project documentation
+```
+
+---
+
+## **🔧 Setup & Installation**
+
+### **1️⃣ Prerequisites**
+
+Ensure you have the following installed:
+
+- [Golang](https://go.dev/dl/) (v1.21+)
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [MongoDB](https://www.mongodb.com/try/download/community) (if running locally without Docker)
+
+### **2️⃣ Clone the Repository**
+
+```sh
+git clone https://github.com/yourusername/link-in-bio-api.git
+cd link-in-bio-api
+```
+
+### **3️⃣ Set Up Environment Variables**
+
+Create a `.env` file in the root directory:
+
+```env
+MONGO_URI=mongodb://mongodb:27017
+PORT=8080
+WORKER_COUNT=10
+```
+
+
+
+---
+
+## **🐳 Running with Docker**
+
+### **1️⃣ Build and Start Containers**
+
+```sh
+docker-compose up --build
+```
+
+This will:
+
+- Build the **Go app**
+- Start **MongoDB**
+- Expose the API on **port 8080**
+
+### **2️⃣ Verify Running Containers**
+
+```sh
+docker ps
+```
+
+You should see **MongoDB** and **Go API** running.
+
+### **3️⃣ Stop Containers**
+
+```sh
+docker-compose down
+```
+
+---
+
+## **⚡ Running Locally (Without Docker)**
+
+### **1️⃣ Start MongoDB Locally**
+
+Ensure MongoDB is running on `localhost:27017`:
+
+```sh
+mongod --dbpath=/path/to/your/data
+```
+
+### **2️⃣ Install Dependencies**
+
+```sh
+go mod tidy
+```
+
+### **3️⃣ Run the Application**
+
+```sh
+go run main.go
+```
+
+The API should now be running on **[http://localhost:8080](http://localhost:8080)** 🚀
+
+---
+
+## **🛠 API Endpoints**
+
+### **🔹 Create a New Link**
+
+```http
+POST /api/v1/links
+```
+
+#### **Request Body**
+
+```json
+{
+  "id": "3",
+  "title": "Test Link",
+  "url": "https://example.com",
+  "createdAt": "2023-10-01T00:00:00Z",
+  "expiresAt": "2023-10-08T00:00:00Z",
+  "clicks": 0
+}
+```
+
+#### **Response**
+
+```json
+{
+   "ID": "4",
+    "Title": "Test Link",
+    "URL": "https://example.com",
+    "CreatedAt": "2023-10-01T00:00:00Z",
+    "ExpiresAt": "2023-10-08T00:00:00Z",
+    "Clicks": 0
+}
+```
+
+### **🔹 Get a Link**
+
+```http
+GET /api/v1/links/{id}
+```
+
+### **🔹 Track Clicks**
+
+```http
+GET /api/v1/visit/{id}
+```
+
+---
+
+## **✅ Running Tests**
+
+```sh
+go test -v ./...
+```
+
+This runs **unit tests** to validate API functionality.
+
+---
