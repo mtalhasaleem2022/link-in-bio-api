@@ -75,6 +75,7 @@ Create a `.env` file in the root directory:
 ```env
 MONGO_URI=mongodb://mongodb:27017
 PORT=8080
+REQUEST_TIMEOUT=5
 WORKER_COUNT=10
 ```
 
@@ -176,6 +177,35 @@ POST /api/v1/links
 
 ```http
 GET /api/v1/links/{id}
+```
+
+### **🔹 Update a Link**
+
+```http
+PUT /api/v1/links/{id}
+```
+
+#### **Request Body**
+
+```json
+{
+  "title": "Updated Link",
+  "url": "https://updated.com",
+  "expiresAt": "2024-10-15T00:00:00Z"
+}
+```
+
+#### **Response**
+
+```json
+{
+    "ID": "1",
+    "Title": "Updated Link",
+    "URL": "https://updated.com",
+    "CreatedAt": "0001-01-01T00:00:00Z",
+    "ExpiresAt": "2024-10-15T00:00:00Z",
+    "Clicks": 0
+}
 ```
 
 ### **🔹 Track Clicks**
